@@ -9,7 +9,7 @@ import (
 )
 
 // For testing until I learn how to accept input
-const maxrand = 2
+const maxrand = 20
 
 func setrandno(max int) (a int) {
 	rand.Seed(time.Now().UnixNano())
@@ -31,6 +31,12 @@ func checkguess(answer, guess int) (counter int) {
 		case guess > answer:
 			fmt.Println("Too big. Try something smaller.")
 		}
+		fmt.Print("Enter a guess:")
+		_, err := fmt.Scanln(&guess)
+		if err != nil {
+			fmt.Println("Error: ", err)
+		}
+
 	}
 	return counter
 }
@@ -39,5 +45,11 @@ func main() {
 	fmt.Println("The Random Number Guessing Game in Go")
 	randno := setrandno(maxrand)
 	fmt.Println("Random number is", randno)
-	fmt.Println("You guessed in", checkguess(randno, 1), "go(es)")
+	var guessno int
+	fmt.Print("Enter a guess:")
+	_, err := fmt.Scanln(&guessno)
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+	fmt.Println("You guessed in", checkguess(randno, guessno), "go(es)")
 }
